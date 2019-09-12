@@ -67,6 +67,13 @@ Dùng để forward (NAT) từ external IP đến private IP
 
 `iptables-save`
 
+## Prevent DoS Attack
+
+Hạn chế truy cập với 25 request/minute đến website
+
+`iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT`
+
+
 reference:
 
 [https://www.unix-ninja.com/p/An_iptables_cheat-sheet](https://www.unix-ninja.com/p/An_iptables_cheat-sheet)
