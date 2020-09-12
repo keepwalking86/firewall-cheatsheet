@@ -17,6 +17,7 @@
   - [9. NAT/Routing](#nat-route)
 - [III. Cheatsheet IPv6](#cheatsheet-IPv6)
   - [1. Default rules](#default-rules-ipv6)
+
 ==========================================================
 
 # <a name="about">I. About iptables</a>
@@ -237,7 +238,7 @@ DNAT and SNAT/MASQUERADE request to enable IP forwarding
 
 # <a name="cheatsheet-ipv6">III. Cheatsheet for IPv6</a>
 
-# <a name="default-rules">1. Default rules</a>
+# <a name="default-rules-ipv6">1. Default rules</a>
 
 ```
 # sample configuration for ip6tables service
