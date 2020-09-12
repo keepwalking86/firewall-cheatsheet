@@ -16,6 +16,7 @@
   - [8. Saving/Backup/Restore](#backup-restore)
   - [9. NAT/Routing](#nat-route)
 - [III. Cheatsheet IPv6](#cheatsheet-IPv6)
+  - [1. Default rules](#default-rules-ipv6)
 ==========================================================
 
 # <a name="about">I. About iptables</a>
@@ -24,7 +25,7 @@ iptables là firewall mà sử dụng để quản lý các rules cho việc l�
 
 Cấu trúc của iptables là iptables -> tables --> chains --> rules. Nghĩa là có thể chứa nhiều tables. Tables có thể chứa nhiều chains. Mà chains có thể là có sẵn hoặc định nghĩa. Chains có thể chứa nhiều rules
 
-## <a name"types-of-tables">1. Types of tables</a>
+## <a name="types-of-tables">1. Types of tables</a>
 
 iptables gồm các tables sau:
 
@@ -234,4 +235,25 @@ DNAT and SNAT/MASQUERADE request to enable IP forwarding
 
 `sysctl -w net.ipv4.ip_forward=1`
 
-# <a name="cheatsheet-ipv6"> III. Cheatsheet for IPv6</a>
+# <a name="cheatsheet-ipv6">III. Cheatsheet for IPv6</a>
+
+# <a name="default-rules">1. Default rules</a>
+
+```
+# sample configuration for ip6tables service
+# you can edit this manually or use system-config-firewall
+# please do not ask us to add additional ports/services to this default configuration
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p ipv6-icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+-A INPUT -p tcp --tcp-flags SYN SYN -m tcpmss --mss 1:500 -j DROP
+-A INPUT -j REJECT --reject-with icmp6-adm-prohibited
+-A FORWARD -j REJECT --reject-with icmp6-adm-prohibited
+COMMIT
+```
